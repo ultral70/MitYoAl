@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MitYoAl</string>
+    <string name="userLogin">Introduce tu usuario o e-mail</string>
+    <string name="pswLogin">Introduce la contraseña</string>
+    <string name="btnAccLogin">Acceder</string>
+    <string name="rbLogin">Recordar Contraseña</string>
 </resources>
