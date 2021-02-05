@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MitYoAl</string>
-    <string name="username">Introduce tu usuario</string>
+    <string name="username">Usuario</string>
+    <string name="hint_email">Correo</string>
+    <string name="registrar">Registrarse</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="inicio_sesion">Ya tienes una cuenta? Inicia sesion aqui.</string>
 </resources>
