@@ -20,6 +20,5 @@ public class SplashActivity extends AppCompatActivity {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         img.startAnimation(anim);
-
     }
 }

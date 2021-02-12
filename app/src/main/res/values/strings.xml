@@ -2,4 +2,12 @@
     <string name="app_name">MitYoAl</string>
     <string name="tv_splash">CONOCE \n AYUDA</string>
     <string name="splash_mityoal">MITYOAL</string>
+    <string name="inicio_sesion">Ya tienes una cuenta? Inicia sesion aqui!</string>
+    <string name="registrar">Registrarse</string>
+    <string name="hint_email">Correo</string>
+    <string name="hint_password">Password</string>
+    <string name="username">Usuario</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="rbLogin">Recordar contraseña</string>
+    <string name="registro">No tienes una cuenta? Createla aqui!</string>
 </resources>
