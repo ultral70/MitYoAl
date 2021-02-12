@@ -19,7 +19,7 @@
         android:src="@drawable/logo_completo"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
+        android:id="@+id/usernameSI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
@@ -37,7 +37,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
+        android:id="@+id/passwordSI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
@@ -45,7 +45,7 @@
         android:layout_marginEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username">
+        app:layout_constraintTop_toBottomOf="@id/usernameSI">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email"
+        android:id="@+id/emailSI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
@@ -63,7 +63,7 @@
         android:layout_marginEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password">
+        app:layout_constraintTop_toBottomOf="@id/passwordSI">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/materialButtonSI"
         style="@style/ButtonSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,6 +82,7 @@
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
         android:text="@string/registrar"
+        android:onClick="registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -97,6 +98,6 @@
         android:text="@string/inicio_sesion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/emailSI" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
