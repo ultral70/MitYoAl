@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
 
         img.startAnimation(anim);
 
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, MainActivity.class);
 
         startActivity(i);
 
