@@ -9,4 +9,5 @@
     <string name="username">Usuario</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="rbLogin">Recordar contraseña</string>
+    <string name="registro">No tienes una cuenta? Createla aqui!</string>
 </resources>
