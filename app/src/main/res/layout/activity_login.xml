@@ -10,22 +10,22 @@
 
     <ImageView
         android:id="@+id/logoLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="32dp"
         android:scaleType="center"
-        android:src="@drawable/logo_completo" />
+        android:src="@drawable/logo_completo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameLI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginEnd="@dimen/margin"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoLogin">
@@ -41,8 +41,8 @@
         android:id="@+id/passwordSI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +60,11 @@
         style="@style/ButtonSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
         android:onClick="iniciarSesion"
+        android:padding="@dimen/margin"
         android:text="@string/iniciar_sesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,24 +77,24 @@
         android:id="@+id/rbLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginEnd="@dimen/margin"
-        app:layout_constraintTop_toBottomOf="@id/passwordSI"
         android:layout_marginTop="@dimen/margin"
-        android:text="@string/rbLogin"/>
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/rbLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordSI" />
 
     <TextView
         android:id="@+id/inicioSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/margin"
         android:onClick="registro"
         android:text="@string/registro"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbLogin" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
