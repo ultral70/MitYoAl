@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">MitYoAl</string>
-    <string name="username">Usuario</string>
-    <string name="hint_email">Correo</string>
-    <string name="registrar">Registrarse</string>
-    <string name="hint_password">Contraseña</string>
-    <string name="inicio_sesion">Ya tienes una cuenta? Inicia sesion aqui.</string>
+    <string name="tv_splash">CONOCE \n AYUDA</string>
+    <string name="splash_mityoal">MITYOAL</string>
 </resources>
