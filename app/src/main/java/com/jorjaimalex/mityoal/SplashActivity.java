@@ -23,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
 
         img.startAnimation(anim);
 
-
         openApp(true);
     }
 
