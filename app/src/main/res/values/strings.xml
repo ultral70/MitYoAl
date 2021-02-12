@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MitYoAl</string>
+    <string name="tv_splash">CONOCE \n AYUDA</string>
+    <string name="splash_mityoal">MITYOAL</string>
 </resources>
