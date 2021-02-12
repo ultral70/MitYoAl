@@ -2,6 +2,7 @@ package com.jorjaimalex.mityoal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,6 +21,10 @@ public class SplashActivity extends AppCompatActivity {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         img.startAnimation(anim);
+
+        Intent i = new Intent(this, MainActivity.class);
+
+        startActivity(i);
 
     }
 }
