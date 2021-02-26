@@ -19,13 +19,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         img = (ImageView) findViewById(R.id.imgLetras);
-
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         img.startAnimation(anim);
 
         openApp(true);
-
     }
 
     private void openApp(boolean locationPermission) {
@@ -34,10 +32,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashActivity
-                        .this, MainActivity.class);
+                        .this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         }, 3500);}
-
 }

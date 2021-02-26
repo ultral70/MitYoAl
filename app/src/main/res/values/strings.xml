@@ -10,4 +10,9 @@
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="rbLogin">Recordar contraseña</string>
     <string name="registro">No tienes una cuenta? Createla aqui!</string>
+    <string name="bottom_app_bar_label_title">Bottom app bar</string>
+    <string name="button_label_title">Button</string>
+    <string name="app_bar_menu_share">Share</string>
+    <string name="app_bar_menu_bookmark">Bookmark</string>
+    <string name="app_bar_menu_search">Search</string>
 </resources>
