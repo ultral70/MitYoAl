@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bottom_app_bar_menu_share"
-        android:icon="@drawable/ic_share_on_surface_24dp"
-        android:title="@string/app_bar_menu_share"
-        app:showAsAction="ifRoom" />
+      android:id="@+id/bottom_app_bar_menu_share"
+      android:title="@string/app_bar_menu_share"
+      android:icon="@drawable/ic_share_on_surface_24dp"
+      app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/bottom_app_bar_menu_bookmark"
-        android:icon="@drawable/ic_bookmark_on_surface_24dp"
-        android:title="@string/app_bar_menu_bookmark"
-        app:showAsAction="ifRoom" />
+      android:id="@+id/bottom_app_bar_menu_bookmark"
+      android:title="@string/app_bar_menu_bookmark"
+      android:icon="@drawable/ic_bookmark_on_surface_24dp"
+      app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/bottom_app_bar_menu_search"
@@ -20,4 +20,5 @@
         android:title="@string/app_bar_menu_config"
         app:showAsAction="ifRoom"
         android:onClick="ajustes"/>
+
 </menu>
