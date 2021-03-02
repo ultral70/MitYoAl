@@ -12,12 +12,19 @@
         android:layout_height="match_parent"
         android:src="@drawable/gente"
         android:scaleType="centerCrop"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/scrim"/>
+        android:background="@drawable/scrim"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/mityoal"
@@ -35,37 +42,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/lnSplash"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="200dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imgSplash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/logo_sin_letras"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="center"
-            app:tint="@color/colorPrimario" />
-
-        <TextView
-            android:id="@+id/conoceAyuda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/tv_splash"
-            app:layout_constraintTop_toBottomOf="@id/imgSplash"
-            android:textColor="@color/white"
-            android:fontFamily="@font/z003"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imgLetras"
         android:layout_width="100dp"
@@ -73,10 +49,20 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="35dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@drawable/logo_solo_letras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/lnSplash" />
+        app:layout_constraintBottom_toTopOf="@id/mityoal"/>
+
+    <TextView
+        android:id="@+id/conoceAyuda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_splash"
+        app:layout_constraintTop_toBottomOf="@id/mityoal"
+        android:textColor="@color/white"
+        android:fontFamily="@font/z003"
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

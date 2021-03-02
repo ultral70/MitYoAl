@@ -15,6 +15,6 @@
     <string name="app_bar_menu_share">Share</string>
     <string name="app_bar_menu_bookmark">Bookmark</string>
     <string name="app_bar_menu_search">Search</string>
-    <string name="tv_informacionP">Introduce una foto de perfil</string>
-    <string name="guardarPerfil">Guardar foto de perfil</string>
+    <string name="toast_et_vacios">No se han introducido todos los valores</string>
+    <string name="toast_msg_no_usuario">El usuario introducido no está registrado</string>
 </resources>
