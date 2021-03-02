@@ -12,15 +12,6 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".AñadirPerfil"></activity>
         <activity android:name=".SplashActivity">
-
-        <activity android:name=".MainActivity"/>
-
-        <activity android:name=".SplashActivity"
-        <activity android:name=".contactos.ContactoActivity"></activity>
-        <activity android:name=".chat.ChatActivity" />
-        <activity android:name=".MainActivity" />
-        <activity
-            android:name=".SplashActivity"
             android:theme="@style/Theme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignInActivity"
-            android:theme="@style/Theme.NoActionBar" />
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/Theme.NoActionBar" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".LoginActivity" />
+
+        <activity android:name=".SignInActivity"
+            android:theme="@style/Theme.NoActionBar"/>
+
+        <activity android:name=".LoginActivity"
+            android:theme="@style/Theme.NoActionBar"/>
     </application>
 
 </manifest>
