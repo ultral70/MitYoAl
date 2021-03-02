@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,16 +19,27 @@ public class SignInActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     private FirebaseAuth fba;
+    EditText etEmail;
+    EditText etPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        // Configure Google Sign In
-
         fba = FirebaseAuth.getInstance();
         user = fba.getCurrentUser();
+
+        etEmail = findViewById(R.id.etEmail);
+        etPass = findViewById(R.id.etPass);
+
+        String mail = getIntent().getStringExtra(LoginActivity.CLAVE_MAIL);
+
+        if (!mail.isEmpty()) {
+
+            etEmail.setText(mail);
+
+        }
 
     }
 
@@ -35,32 +47,43 @@ public class SignInActivity extends AppCompatActivity {
 
     public void registrarse(View view) {
 
-        fba.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        String email = etEmail.getText().toString().trim();
+        String pass = etPass.getText().toString().trim();
 
-                        if (task.isSuccessful()) {
+        if (email.isEmpty() || pass.isEmpty()) {
 
-                            user = fba.getCurrentUser();
+            Toast.makeText(this, R.string.toast_et_vacios, Toast.LENGTH_LONG).show();
 
-                            accederApp();
+        } else {
 
-                        } else {
+            /*
+            Métodos que se crean siempre, para comprobar los datos de la bbdd y añadirlos
+             */
 
-                            Toast.makeText(LoginActivity.this,
-                                    R.string.msj_no_accede
-                                            + "\n" + task.getException().getMessage(),
-                                    Toast.LENGTH_LONG).show();
+            fba.createUserWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if (task.isSuccessful()) {
+
+                                user = fba.getCurrentUser();
+
+                                accederApp();
+
+                            } else {
+
+                                Toast.makeText(SignInActivity.this,
+                                        R.string.toast_msg_no_usuario
+                                                + "\n" + task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+
+                            }
 
                         }
+                    });
 
-                    }
-                });
-
-        Intent i = new Intent(this, LoginActivity.class);
-
-        startActivity(i);
+        }
     }
 
     public void inicio(View view) {
