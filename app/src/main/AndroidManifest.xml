@@ -9,6 +9,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MitYoAl">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AñadirPerfil"></activity>
+        <activity android:name=".SplashActivity">
 
         <activity android:name=".MainActivity"/>
 
@@ -20,12 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SignInActivity"
-            android:theme="@style/Theme.NoActionBar"/>
-
-        <activity android:name=".LoginActivity"
-            android:theme="@style/Theme.NoActionBar"/>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
