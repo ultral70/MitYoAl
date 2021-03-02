@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jorjaimalex.mityoal.Cards.arrayAdapter;
 import com.jorjaimalex.mityoal.Cards.tarjetas;
+import com.jorjaimalex.mityoal.contactos.ContactoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToMatches(View view) {
-        Intent intent = new Intent(MainActivity.this, ContactosActivity.class);
+        Intent intent = new Intent(MainActivity.this, ContactoActivity.class);
         startActivity(intent);
         return;
     }
