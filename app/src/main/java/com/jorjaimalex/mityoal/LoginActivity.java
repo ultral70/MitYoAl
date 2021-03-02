@@ -61,7 +61,11 @@ public class LoginActivity extends AppCompatActivity {
                         user = fba.getCurrentUser();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
 
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                         startActivity(i);
+
                         finish();
 
                     } else {
@@ -81,23 +85,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void registro(View view) {
 
-        String email = etEmail.getText().toString().trim();
+        Intent i = new Intent(this, SignInActivity.class);
 
-        if (email.isEmpty()) {
-
-            Intent i = new Intent(this, SignInActivity.class);
-
-            startActivity(i);
-
-        } else {
-
-            Intent i = new Intent(this, SignInActivity.class);
-
-            i.putExtra(CLAVE_MAIL ,email);
-
-            startActivity(i);
-
-        }
+        startActivity(i);
 
 
     }

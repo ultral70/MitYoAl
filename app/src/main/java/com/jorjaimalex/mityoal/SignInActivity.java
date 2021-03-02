@@ -17,10 +17,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private FirebaseUser user;
+    private FirebaseUser fuser;
     private FirebaseAuth fba;
     EditText etEmail;
     EditText etPass;
+    EditText etUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +29,11 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         fba = FirebaseAuth.getInstance();
-        user = fba.getCurrentUser();
+        fuser = fba.getCurrentUser();
 
-        etEmail = findViewById(R.id.etEmail);
-        etPass = findViewById(R.id.etPass);
-
-        String mail = getIntent().getStringExtra(LoginActivity.CLAVE_MAIL);
-
-        if (!mail.isEmpty()) {
-
-            etEmail.setText(mail);
-
-        }
+        etEmail = findViewById(R.id.etEmailReg);
+        etPass = findViewById(R.id.etPassReg);
+        etUser = findViewById(R.id.etUserReg);
 
     }
 
@@ -47,10 +41,11 @@ public class SignInActivity extends AppCompatActivity {
 
     public void registrarse(View view) {
 
+        String user = etUser.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String pass = etPass.getText().toString().trim();
 
-        if (email.isEmpty() || pass.isEmpty()) {
+        if (email.isEmpty() || pass.isEmpty() || user.isEmpty()) {
 
             Toast.makeText(this, R.string.toast_et_vacios, Toast.LENGTH_LONG).show();
 
@@ -67,9 +62,19 @@ public class SignInActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
 
-                                user = fba.getCurrentUser();
+                                fuser = fba.getCurrentUser();
 
-                                accederApp();
+                                fuser.getDisplayName();
+
+                                Intent i = new Intent(SignInActivity.this, MainActivity.class);
+
+
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                startActivity(i);
+
+                                finish();
 
                             } else {
 
@@ -92,15 +97,5 @@ public class SignInActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void accederApp() {
-
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        /*
-        Aquí finalizamos para que no se mantenga latente la bbdd
-         */
-        finish();
-
-    }
 
 }
