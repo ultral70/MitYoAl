@@ -1,27 +1,40 @@
 package com.jorjaimalex.mityoal;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private FirebaseUser fuser;
-    private FirebaseAuth fba;
+
+    FirebaseAuth fba;
+    FirebaseAuth.AuthStateListener fasl;
     EditText etEmail;
     EditText etPass;
-    EditText etUser;
+    EditText etName;
+    Spinner spProf;
+    Button btRegistrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,73 +42,102 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         fba = FirebaseAuth.getInstance();
-        fuser = fba.getCurrentUser();
+        fasl = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user != null){
+                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            }
+        };
 
-        etEmail = findViewById(R.id.etEmailReg);
-        etPass = findViewById(R.id.etPassReg);
-        etUser = findViewById(R.id.etUserReg);
+        etEmail = findViewById(R.id.etEmail);
+        etPass = findViewById(R.id.etPass);
+        etName = findViewById(R.id.etUserReg);
 
-    }
+        String mail = getIntent().getStringExtra(LoginActivity.CLAVE_MAIL);
+        spProf = findViewById(R.id.SP);
 
+        ArrayList<String> opciones = new ArrayList<String>();
+        opciones.add("Perro Policia");
+        opciones.add("Abanicador");
+        opciones.add("Sexador");
+        opciones.add("Piloto");
+        opciones.add("Malabarista");
 
+        ArrayAdapter adp = new ArrayAdapter(SignInActivity.this, android.R.layout.simple_spinner_dropdown_item, opciones);
 
-    public void registrarse(View view) {
+        spProf.setAdapter(adp);
 
-        String user = etUser.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String pass = etPass.getText().toString().trim();
+        spProf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String opcion = (String) spProf.getAdapter().getItem(position);
 
-        if (email.isEmpty() || pass.isEmpty() || user.isEmpty()) {
+            }
 
-            Toast.makeText(this, R.string.toast_et_vacios, Toast.LENGTH_LONG).show();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        } else {
+            }
+        });
 
-            /*
-            Métodos que se crean siempre, para comprobar los datos de la bbdd y añadirlos
-             */
+        btRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String sp = spProf.getSelectedItem().toString();
 
-            fba.createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                if(sp == null){
+                    return;
+                }
 
-                            if (task.isSuccessful()) {
+                final String email = etEmail.getText().toString();
+                final String password = etPass.getText().toString();
+                final String name = etName.getText().toString();
 
-                                fuser = fba.getCurrentUser();
-
-                                fuser.getDisplayName();
-
-                                Intent i = new Intent(SignInActivity.this, MainActivity.class);
-
-
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                startActivity(i);
-
-                                finish();
-
-                            } else {
-
-                                Toast.makeText(SignInActivity.this,
-                                        R.string.toast_msg_no_usuario
-                                                + "\n" + task.getException().getMessage(),
-                                        Toast.LENGTH_LONG).show();
-
-                            }
-
+                fba.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(!task.isSuccessful()){
+                            Toast.makeText(SignInActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
+                        }else{
+                            String userId = fba.getCurrentUser().getUid();
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                            Map userInfo = new HashMap<>();
+                            userInfo.put("name", name);
+                            userInfo.put("prof", sp);
+                            userInfo.put("profileImageUrl", "default");
+                            currentUserDb.updateChildren(userInfo);
                         }
-                    });
-
-        }
+                    }
+                });
+            }
+        });
     }
 
-    public void inicio(View view) {
+
+
+
+
+    public void inicio() {
         Intent i = new Intent(this, LoginActivity.class);
 
         startActivity(i);
     }
 
+    private void accederApp() {
+
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        /*
+        Aquí finalizamos para que no se mantenga latente la bbdd
+         */
+        finish();
+
+    }
 
 }
