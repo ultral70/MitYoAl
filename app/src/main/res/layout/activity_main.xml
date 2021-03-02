@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     android:clipToPadding="false">
 
+    <!-- Importamos de la clase flingAdapter para que se muestre la carta -->
+    <com.jorjaimalex.mityoal.SwipeFlingAdapterView
+        android:id="@+id/frame"
+        android:background="#ffeee9e2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rotation_degrees="15.5"
+        tools:context=".MyActivity" />
+
+    <include layout="@layout/buttons" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
