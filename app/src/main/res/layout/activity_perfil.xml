@@ -19,14 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvUsuarioP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvInformacionP" />
-
     <LinearLayout
         android:id="@+id/llFoto"
         android:layout_width="match_parent"
@@ -34,7 +26,7 @@
         android:layout_marginTop="@dimen/margin"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUsuarioP">
+        app:layout_constraintTop_toBottomOf="@id/tvInformacionP">
 
         <ImageButton
             android:id="@+id/ibAdjuntarFoto"
@@ -73,7 +65,7 @@
         android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
-        android:onClick="guardar"
+        android:onClick="guardarDatos"
         android:padding="@dimen/margin"
         android:text="@string/guardarPerfil"
         app:layout_constraintBottom_toBottomOf="parent"

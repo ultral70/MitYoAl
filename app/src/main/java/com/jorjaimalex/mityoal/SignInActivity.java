@@ -38,12 +38,9 @@ public class SignInActivity extends AppCompatActivity {
         if (!mail.isEmpty()) {
 
             etEmail.setText(mail);
-
         }
 
     }
-
-
 
     public void registrarse(View view) {
 
@@ -77,7 +74,6 @@ public class SignInActivity extends AppCompatActivity {
                                         R.string.toast_msg_no_usuario
                                                 + "\n" + task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
-
                             }
 
                         }

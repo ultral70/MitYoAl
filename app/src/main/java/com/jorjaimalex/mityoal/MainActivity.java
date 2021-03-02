@@ -154,5 +154,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void ajustes(MenuItem item) {
+        Intent i = new Intent(MainActivity.this, AñadirPerfil.class);
 
+        startActivity(i);
+    }
 }

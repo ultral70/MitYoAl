@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -36,7 +35,6 @@ public class AñadirPerfil extends AppCompatActivity {
 
     ImageView ivFoto;
 
-    TextView tvUsuarioP;
     ImageView ivFotoD;
 
     @Override
@@ -48,17 +46,12 @@ public class AñadirPerfil extends AppCompatActivity {
         fuser = fab.getCurrentUser();
 
         ivFoto = findViewById(R.id.ivFoto);
-
-        tvUsuarioP = findViewById(R.id.tvUsuarioP);
         ivFotoD = findViewById(R.id.ivFotoD);
 
         dbRef = FirebaseDatabase.getInstance()
                 .getReference("datos/Perfiles");
         mFotoStorageRef = FirebaseStorage.getInstance().getReference()
                 .child("Fotos");
-
-
-
     }
 
     public void adjuntarFoto(View view) {
@@ -106,17 +99,6 @@ public class AñadirPerfil extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void cargarPerfil(AñadirPerfil p) {
-        String usuario = fuser.getEmail();
-
-        tvUsuarioP.setText(String.format("Usuario: %s", usuario));
-        Glide.with(ivFotoD.getContext())
-                .load(fuser.)
-                .into(ivFotoD);
-
-        ivFoto.setImageResource(0);
     }
 
     @Override
