@@ -20,4 +20,5 @@
     <string name="app_bar_menu_config">Ajustes</string>
     <string name="tv_informacionP">Cambie su foto de perfil</string>
     <string name="guardarPerfil">Guardar foto perfil</string>
+    <string name="et_usuarioP">Introduce tu correo de usuario</string>
 </resources>

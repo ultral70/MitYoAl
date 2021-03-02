@@ -1,22 +1,21 @@
 package com.jorjaimalex.mityoal;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,22 +24,25 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.jorjaimalex.mityoal.model.Perfil;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AñadirPerfil extends AppCompatActivity {
 
-    public static final int RC_PHOTO_ADJ = 100;
     Uri selectedUri;
-    StorageReference mFotoStorageRef;
-    FirebaseAuth fab;
-    FirebaseUser fuser;
-    DatabaseReference dbRef;
-    ValueEventListener vel;
 
-    ImageView ivFoto;
-    TextView tvUsuario;
+    FirebaseAuth fab;
+    DatabaseReference dbRef;
 
     ImageView ivFotoD;
+    EditText etUsuario;
+
+    String idUser;
+    String usuario;
+    String urlImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,110 +50,100 @@ public class AñadirPerfil extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         fab = FirebaseAuth.getInstance();
-        fuser = fab.getCurrentUser();
 
-        ivFoto = findViewById(R.id.ivFoto);
         ivFotoD = findViewById(R.id.ivFotoD);
-        tvUsuario = findViewById(R.id.tvUsuario);
+        etUsuario = findViewById(R.id.etUsuarioP);
 
         dbRef = FirebaseDatabase.getInstance()
                 .getReference("datos/Perfiles");
-        mFotoStorageRef = FirebaseStorage.getInstance().getReference()
-                .child("Fotos");
     }
 
-    public void adjuntarFoto(View view) {
-        /*abrirá un selector de archivos para ayudarnos a elegir entre cualquier imagen JPEG almacenada localmente en el dispositivo */
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/jpeg");
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        startActivityForResult(Intent.createChooser(intent,
-                "Complete la acción usando"), RC_PHOTO_ADJ);
+    private void getUserInfo() {
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    if (map.get("name") != null) {
+                        usuario = map.get("name").toString();
+                        etUsuario.setText(usuario);
+                    }
+                    Glide.with(ivFotoD.getContext())
+                            .load(selectedUri)
+                            .into(ivFotoD);
+                    if (map.get("profileImageUrl") != null) {
+                        urlImg = map.get("profileImageUrl").toString();
+                        switch (urlImg) {
+                            case "default":
+                                Glide.with(getApplication()).load(R.drawable.gente).into(ivFotoD);
+                                break;
+                            default:
+                                Glide.with(getApplication()).load(urlImg).into(ivFotoD);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_PHOTO_ADJ && resultCode == RESULT_OK) {
-            // cargamos la imagen seleccionada en el ImageView
-            selectedUri = data.getData();
-            Glide.with(ivFoto.getContext())
-                    .load(selectedUri)
-                    .into(ivFoto);
-
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            final Uri imageUri = data.getData();
+            selectedUri = imageUri;
+            ivFotoD.setImageURI(selectedUri);
         }
     }
 
     public void guardarDatos(View view) {
-        final StorageReference fotoRef = mFotoStorageRef
-                .child(selectedUri.getEncodedPath());
-        UploadTask ut = fotoRef.putFile(selectedUri);
+        usuario = etUsuario.getText().toString();
 
-        Task<Uri> urlTask = ut.continueWithTask(
-                new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task)
-                            throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
+        Map userInfo = new HashMap();
+        userInfo.put("name", usuario);
+        dbRef.updateChildren(userInfo);
+        if (selectedUri != null) {
+            StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(idUser);
+            Bitmap bitmap = null;
 
-                        return fotoRef.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    String nombre = fuser.getDisplayName();
-
-                    Uri downloadUri = task.getResult();
-                    Perfil p = new Perfil(nombre,
-                            downloadUri.toString());
-                    dbRef.child(nombre).setValue(p);
-
-                    /* añadimos un listener a la referencia donde hemos insertado el perfil*/
-                    addDatabaseListener(nombre);
-                }
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), selectedUri);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-    }
 
-    private void addDatabaseListener(String clave) {
-        if (vel == null) {
-            vel = new ValueEventListener() {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            byte[] data = baos.toByteArray();
+            UploadTask uploadTask = filepath.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Perfil p = snapshot.getValue(Perfil.class);
-                    if (p != null) cargarPerfil(p);
+                public void onFailure(@NonNull Exception e) {
+                    finish();
                 }
-
+            });
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            };
-            dbRef.child(clave).addValueEventListener(vel);
-        }
-    }
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-    private void cargarPerfil(Perfil p) {
-        tvUsuario.setText(p.getNombre());
-        Glide.with(ivFotoD.getContext())
-                .load(p.getUrlFoto())
-                .into(ivFotoD);
+                    Map userInfo = new HashMap();
+                    userInfo.put("profileImageUrl", downloadUrl.toString());
+                    dbRef.updateChildren(userInfo);
 
-        ivFoto.setImageResource(0);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        removeDatabaseListener();
-    }
-
-    private void removeDatabaseListener() {
-        if (vel != null) {
-            dbRef.removeEventListener(vel);
-            vel = null;
+                    finish();
+                    return;
+                }
+            });
+        } else {
+            finish();
         }
     }
 }

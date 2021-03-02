@@ -7,54 +7,14 @@
     android:padding="@dimen/margin"
     tools:context=".AñadirPerfil">
 
-    <TextView
-        android:id="@+id/tvInformacionP"
+    <EditText
+        android:id="@+id/etUsuarioP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
-        android:text="@string/tv_informacionP"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:hint="@string/et_usuarioP"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvInformacionP" />
-
-    <LinearLayout
-        android:id="@+id/llFoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUsuario">
-
-        <ImageButton
-            android:id="@+id/ibAdjuntarFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="adjuntarFoto"
-            android:src="@drawable/galeria"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/ivFotoD"
@@ -63,7 +23,8 @@
         android:layout_marginTop="@dimen/margin"
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llFoto" />
+        app:layout_constraintTop_toBottomOf="@id/etUsuarioP"
+        android:layout_marginBottom="@dimen/margin"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButtonP"

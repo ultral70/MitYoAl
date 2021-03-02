@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MitYoAl">
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AñadirPerfil"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
