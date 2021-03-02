@@ -21,4 +21,11 @@
         <item name="cornerRadius">30dp</item>
     </style>
 
+    <style name="ButtonGuardarPerfil" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/colorTerciario</item>
+        <item name="strokeColor">@color/colorSecundario</item>
+        <item name="android:textColor">@color/colorMostaza</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+
 </resources>
