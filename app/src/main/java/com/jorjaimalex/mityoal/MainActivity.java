@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.jorjaimalex.mityoal.chat.ChatActivity;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         crearMainMetods();
+
+        crearTarjetas();
+
+    }
+
+    private void crearTarjetas() {
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
 
@@ -89,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void crearMainMetods() {
@@ -127,8 +133,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.bottom_app_bar_menu_share:
                         Toast.makeText(MainActivity.this, "Share clicked.", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.bottom_app_bar_menu_search:
-                        Toast.makeText(MainActivity.this, "Search clicked.", Toast.LENGTH_SHORT).show();
+                    case R.id.bottom_app_bar_menu_chat:
+
+                        Intent i = new Intent(MainActivity.this, ChatActivity.class);
+
+                        startActivity(i);
+
                         break;
                     case R.id.bottom_app_bar_menu_bookmark:
                         Toast.makeText(MainActivity.this, "Bookmark clicked.", Toast.LENGTH_SHORT).show();
