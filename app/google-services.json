@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "274186630744",
+    "project_id": "mityoal-c47c7",
+    "storage_bucket": "mityoal-c47c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274186630744:android:4702fa099c63ea11f9bc2d",
+        "android_client_info": {
+          "package_name": "com.jorjaimalex.mityoal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274186630744-ok5pvob8941k8nj4r04iuhlb704q3lhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtKirZAbTmypTmez4MiICEn6GN3XlPuIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274186630744-ok5pvob8941k8nj4r04iuhlb704q3lhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
