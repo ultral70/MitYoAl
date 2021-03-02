@@ -15,4 +15,6 @@
     <string name="app_bar_menu_share">Share</string>
     <string name="app_bar_menu_bookmark">Bookmark</string>
     <string name="app_bar_menu_search">Search</string>
+    <string name="tv_informacionP">Introduce una foto de perfil</string>
+    <string name="guardarPerfil">Guardar foto de perfil</string>
 </resources>
