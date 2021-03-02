@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cerrarSesion(View view) {
-
         Intent i = new Intent(this, SignInActivity.class);
 
         startActivity(i);
