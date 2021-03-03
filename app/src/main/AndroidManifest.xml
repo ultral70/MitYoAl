@@ -9,9 +9,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MitYoAl">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".AñadirPerfil"></activity>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".AñadirPerfil"/>
+        <activity android:name=".SplashActivity"
             android:theme="@style/Theme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

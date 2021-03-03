@@ -17,11 +17,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth fba;
-    private FirebaseAuth.AuthStateListener fasl;
-    private EditText etEmail;
-    private EditText etPass;
-    private Button btLogin;
+    FirebaseAuth fba;
+    FirebaseAuth.AuthStateListener fasl;
+    EditText etEmail;
+    EditText etPass;
+    Button btLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         fba = FirebaseAuth.getInstance();
-        fasl= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user !=null){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return;
-                }
-            }
-        };
+
+
+
         etEmail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
         btLogin = findViewById(R.id.btLogin);
@@ -59,18 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        fba.addAuthStateListener(fasl);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        fba.removeAuthStateListener(fasl);
     }
 
     public void registro(View view) {
