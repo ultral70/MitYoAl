@@ -44,6 +44,6 @@
         android:layout_height="match_parent"
         android:background="#ffeee9e2"
         app:rotation_degrees="15.5"
-        tools:context=".MainActivity" />
+        tools:context=".MyActivity" />
 
 </LinearLayout>
