@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void isConnectionMatch(String userId) {
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
-           //Hay que cambiarlo por profesiones
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -157,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
     public void getOppositeSexUsers(){
         usersDb.addChildEventListener(new ChildEventListener() {
 
-            //Cambiar para profesion
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.child("sex").getValue() != null) {
@@ -187,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void logoutUser(View view) {
         mAuth.signOut();
