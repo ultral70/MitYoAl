@@ -39,6 +39,24 @@
                 android:textColor="@android:color/white"
                 android:textSize="40sp" />
 
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E339"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/prof"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E339"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="40sp" />
+
         </FrameLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>    
