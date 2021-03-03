@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,10 +18,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth fba;
-    private FirebaseUser user;
-    public static final String CLAVE_MAIL = "MAIL";
-    EditText etEmail;
-    EditText etPass;
+    private FirebaseAuth.AuthStateListener fasl;
+    private EditText etEmail;
+    private EditText etPass;
+    private Button btLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,59 +29,48 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         fba = FirebaseAuth.getInstance();
-        user = fba.getCurrentUser();
-
+        fasl= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user !=null){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            }
+        };
         etEmail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
-
-
-        if (user != null) {
-
-            etEmail.setText(user.getEmail());
-        }
-
+        btLogin = findViewById(R.id.btLogin);
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String email = etEmail.getText().toString();
+                final String password = etPass.getText().toString();
+                fba.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(!task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this, "sign in error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
-    public void iniciarSesion(View view) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fba.addAuthStateListener(fasl);
+    }
 
-        String email = etEmail.getText().toString().trim();
-        String pass = etPass.getText().toString().trim();
-
-        if (email.isEmpty() || pass.isEmpty()){
-
-            Toast.makeText(this, R.string.toast_et_vacios, Toast.LENGTH_LONG).show();
-
-        } else {
-
-            fba.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if (task.isSuccessful()) {
-
-                        user = fba.getCurrentUser();
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        startActivity(i);
-
-                        finish();
-
-                    } else {
-
-                        Toast.makeText(LoginActivity.this,
-                                R.string.toast_msg_no_usuario,
-                                Toast.LENGTH_LONG).show();
-
-                    }
-
-                }
-            });
-
-        }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fba.removeAuthStateListener(fasl);
     }
 
     public void registro(View view) {

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
 
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        SwipeFlingAdapterView flingContainer = findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {

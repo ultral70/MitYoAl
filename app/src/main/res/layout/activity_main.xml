@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:orientation="vertical">
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SignOut"
+            android:onClick="logoutUser" />
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Matches"
+            android:onClick="goToMatches" />
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:onClick="goToSettings" />
+    </LinearLayout>
     <!-- Importamos de la clase flingAdapter para que se muestre la carta -->
     <com.jorjaimalex.mityoal.SwipeFlingAdapterView
         android:id="@+id/frame"
@@ -14,38 +39,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rotation_degrees="15.5"
-        tools:context=".MyActivity" />
+        tools:context=".MainActivity" />
 
-    <include layout="@layout/buttons" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/keyline_4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:fabAlignmentMode="center"
-            app:fabCradleRoundedCornerRadius="32dp"
-            app:menu="@menu/bottom_app_bar_menu"
-            app:navigationIcon="@drawable/ic_menu_on_surface_24dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="normal"
-            android:src="@drawable/ic_add_on_secondary_24dp"
-            app:layout_anchor="@+id/bottom_app_bar"
-            tools:ignore="ContentDescription"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

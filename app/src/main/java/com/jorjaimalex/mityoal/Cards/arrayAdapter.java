@@ -35,7 +35,6 @@ public class arrayAdapter extends ArrayAdapter<tarjetas> {
                 Glide.with(convertView.getContext()).load(R.drawable.ic_launcher).into(image);
                 break;
             default:
-                Glide.clear(image);
                 Glide.with(convertView.getContext()).load(tarjeta.getImageUrl()).into(image);
                 break;
         }

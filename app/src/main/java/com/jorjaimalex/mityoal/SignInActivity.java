@@ -59,7 +59,6 @@ public class SignInActivity extends AppCompatActivity {
         etPass = findViewById(R.id.etPass);
         etName = findViewById(R.id.etUserReg);
 
-        String mail = getIntent().getStringExtra(LoginActivity.CLAVE_MAIL);
         spProf = findViewById(R.id.SP);
 
         ArrayList<String> opciones = new ArrayList<String>();
