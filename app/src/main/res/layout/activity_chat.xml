@@ -33,6 +33,7 @@ tools:context="com.simcoder.tinder.Chat.ChatActivity">
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Send"
+        style="@style/ButtonGuardarPerfil"
         android:id="@+id/send"/>
 </LinearLayout>
 
