@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void registro(View view) {
 
-        Intent i = new Intent(this, SignInActivity.class);
+        Intent i = new Intent(LoginActivity.this, SignInActivity.class);
 
         startActivity(i);
 

@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.child("sex").getValue() != null) {
                     if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
                         String profileImageUrl = "default";
-                        if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")) {
-                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        if (!dataSnapshot.child("imageUrl").getValue().equals("default")) {
+                            profileImageUrl = dataSnapshot.child("imageUrl").getValue().toString();
                         }
                         tarjetas item = new tarjetas(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl);
                         rowItems.add(item);

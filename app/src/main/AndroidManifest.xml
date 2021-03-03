@@ -20,11 +20,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignInActivity"
-            android:theme="@style/Theme.NoActionBar"/>
+        <activity android:name=".SignInActivity"/>
 
-        <activity android:name=".LoginActivity"
-            android:theme="@style/Theme.NoActionBar"/>
+        <activity android:name=".LoginActivity"/>
+
+        <activity android:name=".contactos.ContactoActivity"/>
+        <activity android:name=".chat.ChatActivity"/>
     </application>
 
 </manifest>

@@ -26,4 +26,7 @@
     <string name="opcion3">Abanicador</string>
     <string name="opcion4">Perro Policia</string>
     <string name="opcion5">Malabarista</string>
+    <string name="etDesc">Describete</string>
+    <string name="etProf">¿Que profesion buscas?</string>
+    <string name="etUsuarioP">Introduce nombre de usuario</string>
 </resources>
