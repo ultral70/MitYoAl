@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,41 +7,42 @@
     android:clipToPadding="false"
     android:orientation="vertical">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
+            style="@style/ButtonGuardarPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SignOut"
-            android:onClick="logoutUser" />
-        <Button
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Matches"
-            android:onClick="goToMatches" />
+            android:onClick="logoutUser"
+            android:text="SignOut" />
+
         <Button
-            android:layout_weight="1"
+            style="@style/ButtonGuardarPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings"
-            android:onClick="goToSettings" />
+            android:layout_weight="1"
+            android:onClick="goToMatches"
+            android:text="Matches" />
+
+        <Button
+            style="@style/ButtonGuardarPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="goToSettings"
+            android:text="Settings" />
     </LinearLayout>
-    <!-- Importamos de la clase flingAdapter para que se muestre la carta -->
+
     <com.jorjaimalex.mityoal.SwipeFlingAdapterView
         android:id="@+id/frame"
-        android:background="#ffeee9e2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffeee9e2"
         app:rotation_degrees="15.5"
         tools:context=".MainActivity" />
-
-
-
-
 
 </LinearLayout>
