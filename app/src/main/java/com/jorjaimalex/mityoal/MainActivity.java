@@ -27,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private arrayAdapter arrayAdapter;
     private int i;
 
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
 
-    private String currentUId;
+    String currentUId;
 
-    private DatabaseReference usersDb;
+    String userProf;
+
+    DatabaseReference usersDb;
 
 
     ListView listView;
@@ -42,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        usersDb = FirebaseDatabase.getInstance().getReference().child("User");
 
         mAuth = FirebaseAuth.getInstance();
-        //currentUId = mAuth.getCurrentUser().getUid();
+        currentUId = mAuth.getCurrentUser().getUid();
 
-        //checkUserSex();
+        compProf();
 
         rowItems = new ArrayList<tarjetas>();
 
@@ -122,27 +124,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String userSex;
-    private String oppositeUserSex;
-    public void checkUserSex(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    public void compProf(){
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    if (dataSnapshot.child("sex").getValue() != null){
-                        userSex = dataSnapshot.child("sex").getValue().toString();
-                        switch (userSex){
-                            case "Male":
-                                oppositeUserSex = "Female";
-                                break;
-                            case "Female":
-                                oppositeUserSex = "Male";
-                                break;
-                        }
-                        getOppositeSexUsers();
+
+                    if (dataSnapshot.child("prof").getValue() != null){
+
+                        userProf = dataSnapshot.child("prof").getValue().toString();
+
+                        compOtrasProf();
                     }
                 }
             }
@@ -153,18 +151,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getOppositeSexUsers(){
+    public void compOtrasProf(){
         usersDb.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.child("sex").getValue() != null) {
-                    if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) && dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
+                if (dataSnapshot.child("prof").getValue() != null) {
+                    if (dataSnapshot.exists() && !dataSnapshot.child("connections")
+                            .child("nope").hasChild(currentUId) && !dataSnapshot
+                            .child("connections").child("yeps").hasChild(currentUId) && dataSnapshot
+                            .child("prof").getValue().toString().equals(userProf)) {
+
                         String profileImageUrl = "default";
+
                         if (!dataSnapshot.child("imageUrl").getValue().equals("default")) {
+
                             profileImageUrl = dataSnapshot.child("imageUrl").getValue().toString();
                         }
-                        tarjetas item = new tarjetas(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl, dataSnapshot.child("prof").getValue().toString(), dataSnapshot.child("desc").getValue().toString());
+
+                        tarjetas item = new tarjetas(dataSnapshot.getKey(),
+                                dataSnapshot.child("name").getValue().toString(),
+                                profileImageUrl, dataSnapshot.child("prof")
+                                .getValue().toString(), dataSnapshot.child("desc")
+                                .getValue().toString());
+
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
