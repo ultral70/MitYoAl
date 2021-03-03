@@ -4,29 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin"
+    android:padding="20sp"
     tools:context=".AñadirPerfil">
 
     <ImageView
         android:id="@+id/ivFotoD"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_marginTop="@dimen/margin"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_launcher"
-        android:layout_marginBottom="20sp"/>
+        app:layout_constraintBottom_toTopOf="@+id/materialButtonP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etUsuarioPL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="156dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivFotoD"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsuarioP"
@@ -36,7 +39,23 @@
             android:hint="@string/etUsuarioP" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etDescPL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etUsuarioPL"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:hint="@string/etDesc" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButtonP"
@@ -48,7 +67,7 @@
         android:onClick="guardarDatos"
         android:padding="@dimen/margin"
         android:text="@string/guardarPerfil"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/etDescPL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
