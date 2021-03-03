@@ -47,9 +47,10 @@ public class SignInActivity extends AppCompatActivity {
             }
         };
 
-        etEmail = findViewById(R.id.etEmail);
-        etPass = findViewById(R.id.etPass);
+        etEmail = findViewById(R.id.etEmailReg);
+        etPass = findViewById(R.id.etPassReg);
         etName = findViewById(R.id.etUserReg);
+        btRegistrar = findViewById(R.id.btnRegistrar);
 
         btRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +65,13 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(SignInActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
                         }else{
                             String userId = fba.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
+                            userInfo.put("email", email);
                             userInfo.put("imageUrl", "default");
                             currentUserDb.updateChildren(userInfo);
+                            accederApp();
                         }
                     }
                 });

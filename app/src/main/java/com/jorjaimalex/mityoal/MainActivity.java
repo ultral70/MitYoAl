@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
-        currentUId = mAuth.getCurrentUser().getUid();
+        //currentUId = mAuth.getCurrentUser().getUid();
 
-        checkUserSex();
+        //checkUserSex();
 
         rowItems = new ArrayList<tarjetas>();
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        // Optionally add an OnItemClickListener
+
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
