@@ -11,8 +11,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MitYoAl">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".AñadirPerfil"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AñadirPerfil" />
         <activity android:name=".SplashActivity">
             android:theme="@style/Theme.NoActionBar">
             <intent-filter>
@@ -21,13 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SignInActivity"/>
-
-        <activity android:name=".LoginActivity"/>
-
-        <activity android:name=".contactos.ContactoActivity"/>
-        <activity android:name=".chat.ChatActivity"/>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".contactos.ContactoActivity" />
+        <activity android:name=".chat.ChatActivity" />
     </application>
 
 </manifest>

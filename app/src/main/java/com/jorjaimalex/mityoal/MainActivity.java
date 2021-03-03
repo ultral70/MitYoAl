@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private tarjetas cards_data[];
     private arrayAdapter arrayAdapter;
     private int i;
 
@@ -79,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
                 tarjetas obj = (tarjetas) dataObject;
                 String userId = obj.getuId();
-                usersDb.child(userId).child("connections").child("yeps").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("" +
+                        "").child(currentUId).setValue(true);
                 isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
             }

@@ -38,6 +38,6 @@ public class arrayAdapter extends ArrayAdapter<tarjetas> {
                 Glide.with(convertView.getContext()).load(tarjeta.getImageUrl()).into(image);
                 break;
         }
-        return  convertView;
+        return convertView;
     }
 }
