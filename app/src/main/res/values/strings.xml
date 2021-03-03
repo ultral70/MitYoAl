@@ -19,7 +19,7 @@
     <string name="toast_msg_no_usuario">El usuario introducido no está registrado</string>
     <string name="app_bar_menu_config">Ajustes</string>
     <string name="tv_informacionP">Cambie su foto de perfil</string>
-    <string name="guardarPerfil">Guardar foto perfil</string>
+    <string name="guardarPerfil">Guardar datos</string>
     <string name="et_usuarioP">Introduce tu correo de usuario</string>
     <string name="opcion1">Sexador</string>
     <string name="opcion2">Piloto</string>
@@ -29,4 +29,6 @@
     <string name="etDesc">Describete</string>
     <string name="etProf">¿Que profesion buscas?</string>
     <string name="etUsuarioP">Introduce nombre de usuario</string>
+    <string name="etProfesion">Profesiones</string>
+    <string name="volver">Volver</string>
 </resources>
