@@ -71,7 +71,6 @@
         android:text="@string/iniciar_sesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.material.button.MaterialButton>

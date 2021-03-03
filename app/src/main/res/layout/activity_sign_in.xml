@@ -76,23 +76,21 @@
             android:hint="@string/hint_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-    <Button
-        android:id="@+id/materialButtonSI"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btLogin"
+        style="@style/ButtonSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
+        android:padding="@dimen/margin"
         android:text="@string/registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-    </Button>
 
-
+    </com.google.android.material.button.MaterialButton>
 
     <TextView
         android:id="@+id/inicioSesion"

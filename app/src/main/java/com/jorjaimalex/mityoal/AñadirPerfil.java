@@ -95,7 +95,6 @@ public class AñadirPerfil extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
