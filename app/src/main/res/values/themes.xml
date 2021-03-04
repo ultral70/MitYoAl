@@ -19,10 +19,6 @@
         <item name="colorPrimaryVariant">@color/colorPrimario</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorSecundario</item>
-        <item name="colorSecondaryVariant">@color/colorSecundario</item>
-        <item name="colorOnSecondary">@color/white</item>
-
     </style>
 
     <style name="ButtonSignIn" parent="Widget.MaterialComponents.Button.OutlinedButton">

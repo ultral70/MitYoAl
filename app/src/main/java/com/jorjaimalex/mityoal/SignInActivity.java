@@ -21,8 +21,9 @@ import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
-    FirebaseAuth fba;
-    FirebaseAuth.AuthStateListener fasl;
+    private FirebaseAuth fba;
+    private DatabaseReference user;
+    private FirebaseAuth.AuthStateListener fasl;
     EditText etEmail;
     EditText etPass;
     EditText etName;
@@ -33,13 +34,20 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+
+        etEmail = findViewById(R.id.etEmailReg);
+        etPass = findViewById(R.id.etPassReg);
+        etName = findViewById(R.id.etUserReg);
+        btRegistrar = findViewById(R.id.btnRegistrar);
+
         fba = FirebaseAuth.getInstance();
         fasl = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user != null){
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SignInActivity.this,
+                            MainActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -47,34 +55,49 @@ public class SignInActivity extends AppCompatActivity {
             }
         };
 
-        etEmail = findViewById(R.id.etEmailReg);
-        etPass = findViewById(R.id.etPassReg);
-        etName = findViewById(R.id.etUserReg);
-        btRegistrar = findViewById(R.id.btnRegistrar);
-
         btRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
-                String password = etPass.getText().toString();
-                String name = etName.getText().toString();
-                fba.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(SignInActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
-                        }else{
-                            String userId = fba.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
-                            Map userInfo = new HashMap<>();
-                            userInfo.put("name", name);
-                            userInfo.put("email", email);
-                            userInfo.put("imageUrl", "default");
-                            currentUserDb.updateChildren(userInfo);
-                            accederApp();
-                        }
+                String email = etEmail.getText().toString().trim();
+                String password = etPass.getText().toString().trim();
+                String name = etName.getText().toString().trim();
+
+                if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+                    Toast.makeText(SignInActivity.this,
+                            R.string.toast_et_vacios, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (email.length() < 25 && name.length() < 15) {
+
+                        fba.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(SignInActivity.this,
+                                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(!task.isSuccessful()){
+                                    Toast.makeText(SignInActivity.this,
+                                            "sign up error", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    String userId = fba.getCurrentUser().getUid();
+                                    user = FirebaseDatabase.getInstance().getReference()
+                                            .child("User").child(userId);
+                                    Map userInfo = new HashMap<>();
+                                    userInfo.put("name", name);
+                                    userInfo.put("email", email);
+                                    userInfo.put("prof","paro");
+                                    userInfo.put("profB","paroB");
+                                    userInfo.put("desc","Cosas");
+                                    userInfo.put("imageUrl", "default");
+                                    user.updateChildren(userInfo);
+                                    accederApp();
+                                }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(SignInActivity.this,
+                                R.string.toast_et_muy_grandes,
+                                Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
             }
         });
     }
@@ -91,7 +114,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void inicio(View view) {
-        Intent i = new Intent(SignInActivity.this, LoginActivity.class);
+        Intent i = new Intent(SignInActivity.this,
+                LoginActivity.class);
         startActivity(i);
         finish();
     }

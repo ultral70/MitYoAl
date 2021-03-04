@@ -39,7 +39,7 @@ class LinearRegression {
      */
     public LinearRegression(float[] x, float[] y) {
         if (x.length != y.length) {
-            throw new IllegalArgumentException("array lengths are not equal");
+            throw new IllegalArgumentException(String.valueOf(R.string.error_array_linear));
         }
         N = x.length;
 

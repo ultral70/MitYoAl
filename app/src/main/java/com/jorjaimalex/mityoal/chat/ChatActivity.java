@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -31,7 +32,7 @@ public class ChatActivity extends AppCompatActivity {
 
     EditText mSendEditText;
 
-    Button mSendButton;
+    ImageButton mSendButton;
 
     String currentUserID, matchId, chatId;
 
@@ -46,7 +47,7 @@ public class ChatActivity extends AppCompatActivity {
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("User").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         getChatId();

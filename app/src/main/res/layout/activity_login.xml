@@ -75,28 +75,18 @@
 
     </com.google.android.material.button.MaterialButton>
 
-    <RadioButton
-        android:id="@+id/rbLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginEnd="@dimen/margin"
-        android:text="@string/rbLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilPass" />
-
     <TextView
         android:id="@+id/inicioSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="@dimen/margin"
         android:onClick="registro"
         android:text="@string/registro"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbLogin" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPass"
+        tools:layout_editor_absoluteY="437dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

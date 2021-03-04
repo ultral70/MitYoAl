@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,22 +35,24 @@ import java.util.Map;
 
 public class AñadirPerfil extends AppCompatActivity {
 
-    Uri selectedUri;
+    private Uri selectedUri;
 
-    FirebaseAuth fab;
-    DatabaseReference dbRef;
+    private FirebaseAuth fab;
+    private DatabaseReference dbRef;
 
     ImageView ivFotoD;
     EditText etUsuario;
+    EditText etProfesionB;
     EditText etProfesion;
     EditText etDescripcion;
     Button guardar;
-    Button atras;
-    String idUser;
-    String usuario;
-    String profesion;
-    String descripcion;
-    String urlImg;
+    
+    private String idUser;
+    private String usuario;
+    private String profesion;
+    private String profesionB;
+    private String descripcion;
+    private String urlImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +64,8 @@ public class AñadirPerfil extends AppCompatActivity {
         ivFotoD = findViewById(R.id.ivFotoD);
         etUsuario = findViewById(R.id.etUsuarioP);
         etProfesion = findViewById(R.id.etProfesionP);
+        etProfesionB = findViewById(R.id.etProfesionPB);
         etDescripcion = findViewById(R.id.etDescP);
-        atras = findViewById(R.id.materialButtonVolverP);
         guardar = findViewById(R.id.materialButtonGuardarP);
 
         idUser = fab.getCurrentUser().getUid();
@@ -86,13 +89,6 @@ public class AñadirPerfil extends AppCompatActivity {
                 guardarDatos(view);
             }
         });
-        atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                return;
-            }
-        });
 
     }
 
@@ -114,6 +110,10 @@ public class AñadirPerfil extends AppCompatActivity {
                     if (map.get("desc") != null) {
                         descripcion = map.get("desc").toString();
                         etDescripcion.setText(descripcion);
+                    }
+                    if (map.get("profB") != null) {
+                        profesionB = map.get("profB").toString();
+                        etProfesionB.setText(profesionB);
                     }
 
                     Glide.with(ivFotoD.getContext())
@@ -154,53 +154,69 @@ public class AñadirPerfil extends AppCompatActivity {
         usuario = etUsuario.getText().toString();
         descripcion = etDescripcion.getText().toString();
         profesion = etProfesion.getText().toString();
-        Map userInfo = new HashMap();
-        userInfo.put("name", usuario);
-        userInfo.put("prof", profesion);
-        userInfo.put("desc", descripcion);
-        dbRef.updateChildren(userInfo);
-        if (selectedUri != null) {
-            StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(idUser);
-            Bitmap bitmap = null;
+        profesionB = etProfesionB.getText().toString();
+        
+        if (usuario.length() < 15 && descripcion.length() < 50
+                && profesion.length() < 10 && profesionB.length() < 10) {
 
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), selectedUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Map userInfo = new HashMap();
+            userInfo.put("name", usuario);
+            userInfo.put("prof", profesion);
+            userInfo.put("profB", profesionB);
+            userInfo.put("desc", descripcion);
+            dbRef.updateChildren(userInfo);
+            if (selectedUri != null) {
+                StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(idUser);
+                Bitmap bitmap = null;
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
-            UploadTask uploadTask = filepath.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    finish();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), selectedUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    if (taskSnapshot.getMetadata() != null) {
-                        if (taskSnapshot.getMetadata().getReference() != null) {
-                            Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
-                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String imageUrl = uri.toString();
-                                    Map userInfo = new HashMap();
-                                    userInfo.put("imageUrl", imageUrl);
-                                    dbRef.updateChildren(userInfo);
-                                }});
 
-                            finish();
-                            return;
-                        }
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+                byte[] data = baos.toByteArray();
+                UploadTask uploadTask = filepath.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        finish();
                     }
-                }});
+                });
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        if (taskSnapshot.getMetadata() != null) {
+                            if (taskSnapshot.getMetadata().getReference() != null) {
+                                Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String imageUrl = uri.toString();
+                                        Map userInfo = new HashMap();
+                                        userInfo.put("imageUrl", imageUrl);
+                                        dbRef.updateChildren(userInfo);
+
+                                        Toast.makeText(AñadirPerfil.this, R.string.toast_reiniciar, Toast.LENGTH_SHORT).show();
+
+                                    }});
+
+                                finish();
+                            }
+                        }
+                    }});
+            } else {
+                finish();
+            }
+            
         } else {
-            finish();
+
+            Toast.makeText(this, R.string.toast_et_muy_grandes, Toast.LENGTH_SHORT).show();
+            
         }
+        
+        
     }
 }

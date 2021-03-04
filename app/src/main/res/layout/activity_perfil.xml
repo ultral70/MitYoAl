@@ -18,44 +18,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/llBotonesP"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButtonGuardarP"
+        style="@style/ButtonGuardarPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:onClick="guardarDatos"
+        android:padding="@dimen/margin"
+        android:text="@string/guardarPerfil"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButtonVolverP"
-            style="@style/ButtonGuardarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin"
-            android:layout_marginEnd="@dimen/margin"
-            android:onClick="guardarDatos"
-            android:padding="@dimen/margin"
-            android:text="@string/volver"
-            android:layout_weight="1">
-
-        </com.google.android.material.button.MaterialButton>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButtonGuardarP"
-            style="@style/ButtonGuardarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
-            android:layout_marginEnd="@dimen/margin"
-            android:onClick="guardarDatos"
-            android:padding="@dimen/margin"
-            android:text="@string/guardarPerfil"
-            android:layout_weight="1">
-
-        </com.google.android.material.button.MaterialButton>
-
-    </LinearLayout>
+    </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username"
@@ -72,6 +47,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:hint="@string/etUsuarioP" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -88,9 +64,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:hint="@string/etProfesion"
+            android:hint="@string/etProfesionB"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="301dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/profesionesB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profesiones">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etProfesionPB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:hint="@string/etProf"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="301dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -100,7 +97,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profesiones">
+        app:layout_constraintTop_toBottomOf="@id/profesionesB">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescP"
@@ -110,6 +107,7 @@
             android:hint="@string/etDesc"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="301dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

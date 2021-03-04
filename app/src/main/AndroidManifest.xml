@@ -5,15 +5,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MitYoAl">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".AñadirPerfil" />
-        <activity android:name=".SplashActivity">
+
+        <activity android:name=".SplashActivity"
             android:theme="@style/Theme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
+
+        <activity android:name=".SignInActivity" android:parentActivityName=".LoginActivity"/>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".contactos.ContactoActivity" />
-        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AñadirPerfil" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".contactos.ContactoActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".chat.ChatActivity" android:parentActivityName=".contactos.ContactoActivity"/>
     </application>
 
 </manifest>

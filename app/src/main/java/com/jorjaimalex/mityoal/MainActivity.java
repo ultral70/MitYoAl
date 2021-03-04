@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,17 +28,18 @@ public class MainActivity extends AppCompatActivity {
     private arrayAdapter arrayAdapter;
     private int i;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
-    String currentUId;
+    private String currentUId;
 
-    String userProf;
+    private String userProf;
+    private String otroUserProf;
 
-    DatabaseReference usersDb;
+    private DatabaseReference usersDb;
 
 
-    ListView listView;
-    List<tarjetas> rowItems;
+    private ListView listView;
+    private List<tarjetas> rowItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                Log.d("LIST", "removed object!");
+                Log.d("LIST", String.valueOf(R.string.msg_objeto_borrado));
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -70,18 +73,21 @@ public class MainActivity extends AppCompatActivity {
 
                 tarjetas obj = (tarjetas) dataObject;
                 String userId = obj.getuId();
-                usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
-                Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                usersDb.child(userId).child("connections").child("nope")
+                        .child(currentUId).setValue(true);
+                Toast.makeText(MainActivity.this, R.string.izq,
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 tarjetas obj = (tarjetas) dataObject;
                 String userId = obj.getuId();
-                usersDb.child(userId).child("connections").child("" +
-                        "").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("yeps")
+                        .child(currentUId).setValue(true);
                 isConnectionMatch(userId);
-                Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.der,
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -98,23 +104,30 @@ public class MainActivity extends AppCompatActivity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,
+                        R.string.toast_tuto, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void isConnectionMatch(String userId) {
-        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId)
+                .child("connections").child("yeps").child(userId);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "new Connection",
+                            Toast.LENGTH_LONG).show();
 
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                    String key = FirebaseDatabase.getInstance()
+                            .getReference().child("Chat").push().getKey();
 
-                    usersDb.child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
-                    usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                    usersDb.child(dataSnapshot.getKey()).child("connections")
+                            .child("matches").child(currentUId).child("ChatId").setValue(key);
+                    usersDb.child(currentUId).child("connections").child("matches")
+                            .child(dataSnapshot.getKey()).child("ChatId").setValue(key);
                 }
             }
 
@@ -131,14 +144,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
-
+            //Hay que cambiarlo por profesiones
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
 
-                    if (dataSnapshot.child("prof").getValue() != null){
+                    if (dataSnapshot.child("profB").getValue() != null
+                            && dataSnapshot.child("prof").getValue() != null){
 
                         userProf = dataSnapshot.child("prof").getValue().toString();
+                        otroUserProf = dataSnapshot.child("profB").getValue().toString();
 
                         compOtrasProf();
                     }
@@ -156,30 +171,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.child("prof").getValue() != null) {
+
                     if (dataSnapshot.exists() && !dataSnapshot.child("connections")
                             .child("nope").hasChild(currentUId) && !dataSnapshot
-                            .child("connections").child("yeps").hasChild(currentUId) && dataSnapshot
-                            .child("prof").getValue().toString().equals(userProf)) {
+                            .child("connections").child("yeps")
+                            .hasChild(currentUId) && dataSnapshot
+                            .child("prof").getValue().toString().equals(otroUserProf)) {
 
                         String profileImageUrl = "default";
 
                         if (!dataSnapshot.child("imageUrl").getValue().equals("default")) {
 
-                            profileImageUrl = dataSnapshot.child("imageUrl").getValue().toString();
+                            profileImageUrl = dataSnapshot.child("imageUrl")
+                                    .getValue().toString();
                         }
 
                         tarjetas item = new tarjetas(dataSnapshot.getKey(),
                                 dataSnapshot.child("name").getValue().toString(),
-                                profileImageUrl, dataSnapshot.child("prof")
-                                .getValue().toString(), dataSnapshot.child("desc")
+                                profileImageUrl, dataSnapshot.child("desc")
                                 .getValue().toString());
 
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
+
                 }
-            }
+
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
@@ -196,23 +213,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void logoutUser(View view) {
-        mAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-        return;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_app_bar_menu, menu);
+
+        return true;
     }
 
-    public void goToSettings(View view) {
-        Intent intent = new Intent(MainActivity.this, AñadirPerfil.class);
-        startActivity(intent);
-        return;
-    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-    public void goToMatches(View view) {
-        Intent intent = new Intent(MainActivity.this, ContactoActivity.class);
-        startActivity(intent);
-        return;
+        Intent i;
+        if (id == R.id.bottom_app_bar_menu_salir) {
+            mAuth.signOut();
+            i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        if (id == R.id.bottom_app_bar_menu_ajustes) {
+            i = new Intent(MainActivity.this, AñadirPerfil.class);
+            startActivity(i);
+            return true;
+        }
+        if (id == R.id.bottom_app_bar_menu_contactos) {
+            i = new Intent(MainActivity.this, ContactoActivity.class);
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

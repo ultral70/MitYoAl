@@ -32,7 +32,7 @@ abstract class BaseFlingAdapterView extends AdapterView {
 
     @Override
     public void setSelection(int i) {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException(String.valueOf(R.string.no_soporte));
     }
 
     @Override

@@ -27,9 +27,12 @@ public class arrayAdapter extends ArrayAdapter<tarjetas> {
 
         }
         TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView desc = (TextView) convertView.findViewById(R.id.desc);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
         name.setText(tarjeta.getName());
+        desc.setText(tarjeta.getDescripcion());
+
         switch(tarjeta.getImageUrl()){
             case "default":
                 Glide.with(convertView.getContext()).load(R.drawable.ic_launcher).into(image);

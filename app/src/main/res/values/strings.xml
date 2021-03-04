@@ -31,4 +31,23 @@
     <string name="etUsuarioP">Introduce nombre de usuario</string>
     <string name="etProfesion">Profesiones</string>
     <string name="volver">Volver</string>
+    <string name="etProfesionB">Introduce tu profesión</string>
+    <string name="contactos">Contactos</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="defecto">Texto Aquí</string>
+    <string name="not_supported">Activity does not implement SwipeFlingAdapterView.onFlingListener</string>
+    <string name="toast_tuto">Desliza a la izquierda para rechazar, y a la derecha para aceptar</string>
+    <string name="der">¡Aceptado!</string>
+    <string name="izq">¡Rechazado!</string>
+    <string name="toast_et_muy_grandes">Los datos introducidos son muy grandes</string>
+    <string name="toast_reiniciar">Sal y vuelve a iniciar sesión para que se te actualice el perfil</string>
+    <string name="hint_escribe_texto">Pulsa para escribir</string>
+    <string name="btn_chat">ENVIAR</string>
+    <string name="app_bar_menu_logout">Cerrar sesión</string>
+    <string name="no_soporte">No soportado por tu dispositivo</string>
+    <string name="excepcion_fling">La excepción se encuentra en:</string>
+    <string name="error_array_linear">Los array no son de la misma longitud</string>
+    <string name="toast_error_inicio_sesion">No se ha podido iniciar sesión</string>
+    <string name="msg_objeto_borrado">Objeto de la lista borrado</string>
 </resources>

@@ -88,7 +88,7 @@ public class FlingCardListener implements View.OnTouchListener {
                     y = event.getY(mActivePointerId);
                     success = true;
                 } catch (IllegalArgumentException e) {
-                    Log.w(TAG, "Exception in onTouch(view, event) : " + mActivePointerId, e);
+                    Log.w(TAG, String.valueOf(R.string.excepcion_fling + mActivePointerId), e);
                 }
                 if (success) {
                     // Remember where we started
